@@ -13,7 +13,6 @@ public class Sale {
 
     Sale(){
         item = new SaledItem("./src/Goods.txt");
-
         input = new Scanner(System.in);
     }
 

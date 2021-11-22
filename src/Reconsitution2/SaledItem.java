@@ -48,7 +48,7 @@ public class SaledItem {
         sum=0;
     }
 
-    public void AddItem(SaledItemInfo item){
+    public void addItem(SaledItemInfo item){
         this.Saled.add(item);
         sum +=item.getCount()*item.getPrice();
     }
