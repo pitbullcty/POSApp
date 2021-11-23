@@ -1,6 +1,10 @@
 package Reconsitution2;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
+import java.awt.*;
+import java.util.Locale;
 
 public class WelcomeUI {
 
@@ -8,22 +12,22 @@ public class WelcomeUI {
     private JPanel panel1;
     private JButton start;
 
-    void makeNewSale(){
-        start.addActionListener(e->{
+    void makeNewSale() {
+        start.addActionListener(e -> {
             SaleUI ui = new SaleUI();
             frame.setVisible(false);
         });
     }
 
-    public WelcomeUI(){
+    public WelcomeUI() {
         frame = new JFrame("POS系统");
-        makeNewSale();
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,600);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        makeNewSale();
     }
-
 
 
 }

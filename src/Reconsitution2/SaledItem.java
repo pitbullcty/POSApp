@@ -28,6 +28,18 @@ class SaledItemInfo{
         return count;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return String.format("%s   %.2f   %d   %.2f",name,price,count,count*price);
@@ -49,7 +61,15 @@ public class SaledItem {
     }
 
     public void addItem(SaledItemInfo item){
-        this.Saled.add(item);
+        boolean isrepeated = false;
+        for(var e:Saled){
+            if(e.getName().equals(item.getName())){
+                isrepeated = true;
+                e.setCount(e.getCount()+ item.getCount());
+                break;
+            }
+        }
+        if(!isrepeated)  Saled.add(item);
         sum +=item.getCount()*item.getPrice();
     }
 

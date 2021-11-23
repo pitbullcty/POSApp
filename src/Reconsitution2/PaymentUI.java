@@ -3,6 +3,7 @@ package Reconsitution2;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 public class PaymentUI {
 
@@ -14,21 +15,22 @@ public class PaymentUI {
     private JLabel total;
     private Payment payment;
 
-    public  PaymentUI(Sale sale){
+    public PaymentUI(Sale sale) {
         frame = new JFrame("POS系统");
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,600);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         setTotal(sale);
         makePayment(sale);
     }
 
-    public void setTotal(Sale sale){
+    public void setTotal(Sale sale) {
         total.setText(String.valueOf(sale.getTotal()));
     }
 
-    public void makePayment(Sale sale){
+    public void makePayment(Sale sale) {
         paid.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -45,34 +47,34 @@ public class PaymentUI {
                 getChange(sale);
             }
         });
-        pay.addActionListener(e->{
-            try{
-                if(payment.makePayment()){
+
+        pay.addActionListener(e -> {
+            try {
+                if (payment.makePayment()) {
                     JOptionPane.showMessageDialog(panel1, "交易成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-                    ReceptUI ui = new ReceptUI(sale,payment);
-                }
-                else{
+                    ReceptUI ui = new ReceptUI(sale, payment);
+                    ui.print();
+                    frame.setVisible(false);
+                } else {
                     JOptionPane.showMessageDialog(panel1, "实付额小于应付额", "警告", JOptionPane.WARNING_MESSAGE);
                 }
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
     }
 
 
-    public void getChange(Sale sale){
+    public void getChange(Sale sale) {
         boolean isException = false;
-        try{
-            payment = new Payment(Double.parseDouble(paid.getText()),sale);
-        }
-        catch (Exception e){
+        try {
+            payment = new Payment(Double.parseDouble(paid.getText()), sale);
+        } catch (Exception e) {
             isException = true;
             JOptionPane.showMessageDialog(panel1, "输入格式错误！", "警告", JOptionPane.WARNING_MESSAGE);
-        }
-        finally {
-            if(!isException)  change.setText(String.valueOf(payment.getChange()));
+        } finally {
+            if (!isException) change.setText(String.valueOf(payment.getChange()));
         }
     }
+
 }

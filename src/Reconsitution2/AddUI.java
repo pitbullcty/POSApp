@@ -1,6 +1,7 @@
 package Reconsitution2;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class AddUI {
     private JFrame frame;
@@ -22,6 +23,7 @@ public class AddUI {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         saled = new SaledItem();
         info = new GoodsInfo("./src/Goods.txt");
@@ -29,20 +31,18 @@ public class AddUI {
 
     public void enterItem() {
         enter.addActionListener(e -> {
-            try{
+            try {
                 int num = Integer.parseInt(textField2.getText());
                 String id = textField1.getText();
-                String name= saled.getNamebyID(id,info);
-                double price = saled.getPricebyID(id,info);
-                if(name !=null){
-                    saled.addItem(new SaledItemInfo(name,num,price));
+                String name = saled.getNamebyID(id, info);
+                double price = saled.getPricebyID(id, info);
+                if (name != null) {
+                    saled.addItem(new SaledItemInfo(name, num, price));
                     JOptionPane.showMessageDialog(panel1, "成功添加商品", "提示", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(panel1, "无该商品ID，添加失败！", "警告", JOptionPane.WARNING_MESSAGE);
                 }
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(panel1, "输入有误，添加失败！", "警告", JOptionPane.WARNING_MESSAGE);
             }
 
@@ -58,4 +58,5 @@ public class AddUI {
         textField1.setText("");
         textField2.setText("");
     }
+
 }
