@@ -25,8 +25,5 @@ public class WelcomeUI {
     }
 
 
-    public static void main(String[] args) {
-        WelcomeUI wel = new WelcomeUI();
-    }
 
 }

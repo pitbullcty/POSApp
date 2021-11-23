@@ -31,7 +31,7 @@ public class SaleUI {
         public void actionPerformed(ActionEvent ac){
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             showItem();
-            time.setText("当前时间： "+formatter.format(new java.util.Date()).toString());
+            time.setText("当前时间： "+formatter.format(new java.util.Date()));
         }
     }
     //定时内部类
@@ -82,6 +82,7 @@ public class SaleUI {
         setTable();
         if(addui!=null){
             sale.setItem(addui.getSaled());
+            sale.setTotal(addui.getSaled().getSum());
             DefaultTableModel defaultTableModel = (DefaultTableModel)item.getModel();
             for(var row:sale.toTable()){
                 defaultTableModel.addRow(row);
@@ -93,7 +94,7 @@ public class SaleUI {
     public void finishSale(){
        end.addActionListener(e -> {
            if(addui!=null) addui.getFrame().setVisible(false);
-           payui = new PaymentUI();
+           payui = new PaymentUI(sale);
            frame.setVisible(false);
        });
     }
