@@ -11,7 +11,7 @@ import java.util.Date;
 public class SaleUI {
 
     private static SaleUI ui = null;
-    private boolean isdone = false;
+    private boolean isdone;
     private JFrame frame;
     private JPanel panel;
     private JTable item;
@@ -106,9 +106,14 @@ public class SaleUI {
 
     public void finishSale() {
         end.addActionListener(e -> {
-            if (addui != null) addui.getFrame().setVisible(false);
-            frame.setVisible(false);
-            isdone = true;
+            if(sale.getItem()!=null && sale.getItem().getSaled().size()!=0){
+                if (addui != null) addui.getFrame().setVisible(false);
+                frame.setVisible(false);
+                isdone = true;
+            }
+            else{
+                JOptionPane.showMessageDialog(panel, "请购买物品后结算！", "提示", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
     }
 
