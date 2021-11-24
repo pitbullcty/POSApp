@@ -56,7 +56,7 @@ public class SaleUI {
         frame.setVisible(true);
         isdone = false;
         enterItem();
-        finishSale();
+        makePayment();
     }
 
 
@@ -104,7 +104,7 @@ public class SaleUI {
         }
     }
 
-    public void finishSale() {
+    public void makePayment() {
         end.addActionListener(e -> {
             if(sale.getItem()!=null && sale.getItem().getSaled().size()!=0){
                 if (addui != null) addui.getFrame().setVisible(false);

@@ -27,7 +27,8 @@ public class PaymentUI {
         isdone = false;
         setTotal(sale);
         setTable(sale);
-        makePayment(sale);
+        addListner(sale);
+        finishSale(sale);
     }
 
     public void setTable(Sale sale) {
@@ -62,7 +63,23 @@ public class PaymentUI {
         total.setText(String.valueOf(sale.getTotal()));
     }
 
-    public void makePayment(Sale sale) {
+    public void finishSale(Sale sale) {
+        pay.addActionListener(e -> {
+            try {
+                if (payment.makePayment()) {
+                    JOptionPane.showMessageDialog(panel1, "交易成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    isdone = true;
+                    frame.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(panel1, "实付额小于应付额", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    public void addListner(Sale sale){
         paid.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -77,20 +94,6 @@ public class PaymentUI {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 getChange(sale);
-            }
-        });
-
-        pay.addActionListener(e -> {
-            try {
-                if (payment.makePayment()) {
-                    JOptionPane.showMessageDialog(panel1, "交易成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-                    isdone = true;
-                    frame.setVisible(false);
-                } else {
-                    JOptionPane.showMessageDialog(panel1, "实付额小于应付额", "警告", JOptionPane.WARNING_MESSAGE);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
         });
     }
