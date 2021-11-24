@@ -98,7 +98,7 @@ public class SaleUI {
         end.addActionListener(e -> {
             if (addui != null) addui.getFrame().setVisible(false);
             payui = new PaymentUI(sale);
-            frame.setVisible(false);
+            frame.dispose();
         });
     }
 

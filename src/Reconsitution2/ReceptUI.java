@@ -24,7 +24,7 @@ public class ReceptUI {
         recept = new Recept(sale, payment);
         processBar.addChangeListener(e -> {
             if (processBar.getValue() == 100) {
-                frame.setVisible(false);
+                frame.dispose();
                 WelcomeUI ui = new WelcomeUI();
             }
         });

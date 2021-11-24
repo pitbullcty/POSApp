@@ -15,7 +15,7 @@ public class WelcomeUI {
     void makeNewSale() {
         start.addActionListener(e -> {
             SaleUI ui = new SaleUI();
-            frame.setVisible(false);
+            frame.dispose();
         });
     }
 

@@ -54,7 +54,7 @@ public class PaymentUI {
                     JOptionPane.showMessageDialog(panel1, "交易成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
                     ReceptUI ui = new ReceptUI(sale, payment);
                     ui.print();
-                    frame.setVisible(false);
+                    frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(panel1, "实付额小于应付额", "警告", JOptionPane.WARNING_MESSAGE);
                 }
