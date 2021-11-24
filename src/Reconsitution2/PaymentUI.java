@@ -3,6 +3,7 @@ package Reconsitution2;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 public class PaymentUI {
     private static PaymentUI ui;
@@ -12,6 +13,7 @@ public class PaymentUI {
     private JButton pay;
     private JPanel panel1;
     private JLabel total;
+    private JTable table;
     private Payment payment;
     private boolean isdone ;
 
@@ -24,8 +26,27 @@ public class PaymentUI {
         frame.setVisible(true);
         isdone = false;
         setTotal(sale);
+        setTable(sale);
         makePayment(sale);
     }
+
+    public void setTable(Sale sale) {
+        String[] columns = {"商品名", "价格", "数量"};
+        Object[][] data = null;
+        DefaultTableModel model = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+        DefaultTableModel defaultTableModel = (DefaultTableModel)  table.getModel();
+        for (var row : sale.toTable()) {
+            defaultTableModel.addRow(row);
+        }
+        table.setModel(defaultTableModel);
+    }
+
 
     public static PaymentUI getInstance(Sale sale) {
         if (ui == null) ui = new PaymentUI(sale);

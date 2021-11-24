@@ -9,8 +9,8 @@ import java.util.Date;
 
 
 public class SaleUI {
-    private static SaleUI ui = null;
 
+    private static SaleUI ui = null;
     private boolean isdone = false;
     private JFrame frame;
     private JPanel panel;
@@ -78,7 +78,6 @@ public class SaleUI {
             }
         });
     }
-
 
     public void setTable() {
         String[] columns = {"商品名", "价格", "数量"};
