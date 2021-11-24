@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class Recept {
 
     private String text;
@@ -40,7 +41,7 @@ public class Recept {
 
     @Override
     public String toString() {
-       return text;
+        return text;
     }
 
     public void print(){
@@ -61,3 +62,4 @@ public class Recept {
     }
 
 }
+

@@ -3,7 +3,6 @@ package Reconsitution2;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
 
 public class PaymentUI {
     private static PaymentUI ui;
@@ -14,7 +13,7 @@ public class PaymentUI {
     private JPanel panel1;
     private JLabel total;
     private Payment payment;
-    private boolean isdone=false;
+    private boolean isdone ;
 
     public PaymentUI(Sale sale) {
         frame = new JFrame("POS系统");
@@ -23,19 +22,19 @@ public class PaymentUI {
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        isdone =false;
+        isdone = false;
         setTotal(sale);
         makePayment(sale);
     }
 
-    public static PaymentUI getInstance(Sale sale){
-        if(ui==null) ui = new PaymentUI(sale);
+    public static PaymentUI getInstance(Sale sale) {
+        if (ui == null) ui = new PaymentUI(sale);
         return ui;
     }
 
 
-    public static void setNull(){
-        ui=null;
+    public static void setNull() {
+        ui = null;
     }
 
     public void setTotal(Sale sale) {

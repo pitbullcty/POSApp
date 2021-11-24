@@ -2,8 +2,6 @@ package Reconsitution2;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -11,9 +9,9 @@ import java.util.Date;
 
 
 public class SaleUI {
-    private static SaleUI ui=null;
+    private static SaleUI ui = null;
 
-    private boolean isdone=false;
+    private boolean isdone = false;
     private JFrame frame;
     private JPanel panel;
     private JTable item;
@@ -41,8 +39,8 @@ public class SaleUI {
     }
     //定时内部类
 
-    public static SaleUI getInstance(){
-        if(ui==null) ui = new SaleUI();
+    public static SaleUI getInstance() {
+        if (ui == null) ui = new SaleUI();
         return ui;
     }
 
@@ -61,22 +59,16 @@ public class SaleUI {
         finishSale();
     }
 
-    public JPanel getPanel1() {
-        return panel;
-    }
 
-    public boolean getIsdone(){
+    public boolean getIsdone() {
         return isdone;
     }
 
-    public void setIsdone(boolean isdone) {
-        this.isdone = isdone;
+
+    public static void setNull() {
+        ui = null;
     }
 
-
-    public static void setNull(){
-        ui=null;
-    }
     public void enterItem() {
         add.addActionListener(e -> {
             if (addui == null) addui = new AddUI();

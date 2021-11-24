@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class Item {
-    private String ID;
-    private String name;
-    private double price;
+    protected String ID;
+    protected String name;
+    protected double price;
 
     Item(String ID, String name, double price) {
         this.ID = ID;
@@ -16,15 +16,15 @@ class Item {
         this.price = price;
     }
 
-    public String GetID() {
+    public String getID() {
         return ID;
     }
 
-    public String GetName() {
+    public String getName() {
         return name;
     }
 
-    public double GetPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -40,10 +40,10 @@ public class GoodsInfo{
     GoodsInfo(String filename) {
         this.log = new GoodsLog(filename);
         this.Info = new ArrayList<>();
-        this.ReadItem();
+        this.readInfo();
     }
 
-    public void ReadItem(){
+    public void readInfo(){
         File logs = log.Getlog();
         Scanner input1 = null;
         try {

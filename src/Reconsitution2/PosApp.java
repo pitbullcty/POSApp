@@ -1,81 +1,78 @@
 package Reconsitution2;
 
 public class PosApp {
-
     private Payment payment;
     private Sale sale;
+    private boolean isdone = false;
 
-    private boolean isdone=false;
-
-    private enum STATE{
+    private enum STATE {
         WELCOMESTATE,
         SALESTATE,
         PAYMENTSTATE,
         RECEPTSTATE,
     }
 
-    private STATE state=STATE.WELCOMESTATE;
+    private STATE state = STATE.WELCOMESTATE;
 
-    public void makeNewSale(){
+    public void makeNewSale() {
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WelcomeUI welcomeUI =  WelcomeUI.getInstance();
-        if(welcomeUI.getIsdone()){
-            state=STATE.SALESTATE;
+        WelcomeUI welcomeUI = WelcomeUI.getInstance();
+        if (welcomeUI.getIsdone()) {
+            state = STATE.SALESTATE;
             WelcomeUI.setNull();
         }
     }
 
-    public void enterItem(){
+    public void enterItem() {
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        SaleUI saleUI =  SaleUI.getInstance();
+        SaleUI saleUI = SaleUI.getInstance();
         sale = SaleUI.getInstance().getSale();
-        if( saleUI.getIsdone()){
-            state=STATE.PAYMENTSTATE;
+        if (saleUI.getIsdone()) {
+            state = STATE.PAYMENTSTATE;
             SaleUI.setNull();
         }
     }
 
-    public void makePayment(){
+    public void makePayment() {
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         PaymentUI paymentUI = PaymentUI.getInstance(sale);
-
-        payment =paymentUI.getPayment();
-        if( paymentUI.getIsdone()){
-            state=STATE.RECEPTSTATE;
+        payment = paymentUI.getPayment();
+        if (paymentUI.getIsdone()) {
+            state = STATE.RECEPTSTATE;
             PaymentUI.setNull();
         }
     }
 
-    public void print(){
+    public void print() {
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ReceptUI receptUI = ReceptUI.getInstance(sale,payment);
+        ReceptUI receptUI = ReceptUI.getInstance(sale, payment);
 
-        if( receptUI.getIsdone()){
+        if (receptUI.getIsdone()) {
             state = STATE.WELCOMESTATE;
             ReceptUI.setNull();
         }
     }
 
-    public void run(){
-        while (true){
-            switch (state){
+    public void run() {
+        while (true) {
+            switch (state) {
                 case WELCOMESTATE:
                     makeNewSale();
                     break;
@@ -95,7 +92,7 @@ public class PosApp {
     }
 
     public static void main(String[] args) {
-      PosApp app = new PosApp();
-      app.run();
+        PosApp app = new PosApp();
+        app.run();
     }
 }

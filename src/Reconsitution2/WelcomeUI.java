@@ -1,41 +1,37 @@
 package Reconsitution2;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
-import java.awt.*;
-import java.util.Locale;
+
 
 public class WelcomeUI {
 
-    private static WelcomeUI ui =null;
-    private static boolean isdone=false;
+    private static WelcomeUI ui = null;
+    private static boolean isdone = false;
     private JFrame frame;
     private JPanel panel1;
     private JButton start;
 
     void makeNewSale() {
         start.addActionListener(e -> {
-           isdone = true;
-           frame.setVisible(false);
+            isdone = true;
+            frame.setVisible(false);
         });
     }
 
-    public boolean getIsdone(){
+    public boolean getIsdone() {
         return isdone;
     }
-    public void setIsdone(boolean isdone) {
-        this.isdone = isdone;
+
+
+
+
+    public static void setNull() {
+        ui = null;
     }
 
 
-    public static void setNull(){
-        ui=null;
-    }
-
-
-    public static WelcomeUI getInstance(){
-        if(ui==null) ui = new WelcomeUI();
+    public static WelcomeUI getInstance() {
+        if (ui == null) ui = new WelcomeUI();
         return ui;
     }
 
