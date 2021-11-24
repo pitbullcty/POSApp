@@ -8,15 +8,35 @@ import java.util.Locale;
 
 public class WelcomeUI {
 
+    private static WelcomeUI ui =null;
+    private static boolean isdone=false;
     private JFrame frame;
     private JPanel panel1;
     private JButton start;
 
     void makeNewSale() {
         start.addActionListener(e -> {
-            SaleUI ui = new SaleUI();
-            frame.dispose();
+           isdone = true;
+           frame.setVisible(false);
         });
+    }
+
+    public boolean getIsdone(){
+        return isdone;
+    }
+    public void setIsdone(boolean isdone) {
+        this.isdone = isdone;
+    }
+
+
+    public static void setNull(){
+        ui=null;
+    }
+
+
+    public static WelcomeUI getInstance(){
+        if(ui==null) ui = new WelcomeUI();
+        return ui;
     }
 
     public WelcomeUI() {
@@ -26,6 +46,7 @@ public class WelcomeUI {
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        isdone = false;
         makeNewSale();
     }
 

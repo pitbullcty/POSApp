@@ -6,7 +6,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class PaymentUI {
-
+    private static PaymentUI ui;
     private JFrame frame;
     private JTextField paid;
     private JLabel change;
@@ -14,6 +14,7 @@ public class PaymentUI {
     private JPanel panel1;
     private JLabel total;
     private Payment payment;
+    private boolean isdone=false;
 
     public PaymentUI(Sale sale) {
         frame = new JFrame("POS系统");
@@ -22,8 +23,19 @@ public class PaymentUI {
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        isdone =false;
         setTotal(sale);
         makePayment(sale);
+    }
+
+    public static PaymentUI getInstance(Sale sale){
+        if(ui==null) ui = new PaymentUI(sale);
+        return ui;
+    }
+
+
+    public static void setNull(){
+        ui=null;
     }
 
     public void setTotal(Sale sale) {
@@ -52,9 +64,8 @@ public class PaymentUI {
             try {
                 if (payment.makePayment()) {
                     JOptionPane.showMessageDialog(panel1, "交易成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-                    ReceptUI ui = new ReceptUI(sale, payment);
-                    ui.print();
-                    frame.dispose();
+                    isdone = true;
+                    frame.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(panel1, "实付额小于应付额", "警告", JOptionPane.WARNING_MESSAGE);
                 }
@@ -64,6 +75,17 @@ public class PaymentUI {
         });
     }
 
+    public boolean getIsdone() {
+        return isdone;
+    }
+
+    public void setIsdone(boolean isdone) {
+        this.isdone = isdone;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
 
     public void getChange(Sale sale) {
         boolean isException = false;

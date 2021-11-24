@@ -11,6 +11,9 @@ import java.util.Date;
 
 
 public class SaleUI {
+    private static SaleUI ui=null;
+
+    private boolean isdone=false;
     private JFrame frame;
     private JPanel panel;
     private JTable item;
@@ -38,6 +41,10 @@ public class SaleUI {
     }
     //定时内部类
 
+    public static SaleUI getInstance(){
+        if(ui==null) ui = new SaleUI();
+        return ui;
+    }
 
     public SaleUI() {
         sale = new Sale();
@@ -49,6 +56,7 @@ public class SaleUI {
         setTable();
         add.addActionListener(new TimeActionListener());
         frame.setVisible(true);
+        isdone = false;
         enterItem();
         finishSale();
     }
@@ -57,6 +65,18 @@ public class SaleUI {
         return panel;
     }
 
+    public boolean getIsdone(){
+        return isdone;
+    }
+
+    public void setIsdone(boolean isdone) {
+        this.isdone = isdone;
+    }
+
+
+    public static void setNull(){
+        ui=null;
+    }
     public void enterItem() {
         add.addActionListener(e -> {
             if (addui == null) addui = new AddUI();
@@ -80,7 +100,6 @@ public class SaleUI {
         item.setModel(model);
     }
 
-
     public void showItem() {
         setTable();
         if (addui != null) {
@@ -97,10 +116,12 @@ public class SaleUI {
     public void finishSale() {
         end.addActionListener(e -> {
             if (addui != null) addui.getFrame().setVisible(false);
-            payui = new PaymentUI(sale);
-            frame.dispose();
+            frame.setVisible(false);
+            isdone = true;
         });
     }
 
-
+    public Sale getSale() {
+        return sale;
+    }
 }

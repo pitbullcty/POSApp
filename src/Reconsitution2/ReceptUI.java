@@ -9,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ReceptUI {
+    private static ReceptUI ui;
     private JFrame frame;
     private JLabel info;
     private JPanel panel;
     private JProgressBar processBar;
     private Recept recept;
+    private boolean isdone=false;
 
     public ReceptUI(Sale sale, Payment payment) {
         frame = new JFrame("POS系统");
@@ -24,19 +26,37 @@ public class ReceptUI {
         recept = new Recept(sale, payment);
         processBar.addChangeListener(e -> {
             if (processBar.getValue() == 100) {
-                frame.dispose();
-                WelcomeUI ui = new WelcomeUI();
+                isdone = true;
+                frame.setVisible(false);
             }
         });
+        isdone = false;
+        print();
+    }
+
+
+    public static void setNull(){
+        ui=null;
+    }
+
+    public static ReceptUI getInstance(Sale sale,Payment payment){
+        if(ui==null) ui = new ReceptUI(sale,payment);
+        return ui;
+    }
+
+    public boolean getIsdone() {
+        return isdone;
+    }
+
+    public void setIsdone(boolean isdone) {
+        this.isdone = isdone;
     }
 
     class PrintAction extends Thread {
         int count = 0;
-
         public int getCount() {
             return count;
         }
-
         public void run() {
             boolean isInvoke = false;
             while (count < 100) {
@@ -52,7 +72,6 @@ public class ReceptUI {
             }
         }
     }
-
 
     public void print() {
         PrintAction printAction = new PrintAction();
