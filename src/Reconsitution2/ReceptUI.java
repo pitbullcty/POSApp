@@ -1,12 +1,9 @@
 package Reconsitution2;
 
+import Reconsitution2.style.Printer;
+
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicButtonListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class ReceptUI {
     private static ReceptUI ui;
@@ -23,7 +20,8 @@ public class ReceptUI {
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        recept = new Recept(sale, payment);
+        Object o =Parser.getObject();
+        recept = new Recept(o,sale, payment);
         processBar.addChangeListener(e -> {
             if (processBar.getValue() == 100) {
                 isdone = true;
@@ -59,7 +57,11 @@ public class ReceptUI {
         public void run() {
             boolean isInvoke = false;
             while (count < 100) {
-                if (!isInvoke) recept.print();
+                if (!isInvoke){
+                    Object c =Parser.getObject();
+                   Printer printer = (Printer) c;
+                   printer.print(recept);
+                }
                 isInvoke = true;
                 try {
                     Thread.sleep(10);

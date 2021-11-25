@@ -1,121 +1,14 @@
 package Reconsitution2;
 
 
-interface State{
-    void makeNewSale(PosApp pos);
-    void enterItem(PosApp pos);
-    void finishSale(PosApp pos);
-    void makePayment(PosApp pos);
-}
-
-class NewSaleState implements State{
-
-    @Override
-    public void makeNewSale(PosApp pos) {
-       while (!pos.makeNewSale()){
-           pos.setState(this);
-       }
-    }
-
-    @Override
-    public void enterItem(PosApp pos) {
-
-    }
-
-    @Override
-    public void finishSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void makePayment(PosApp pos) {
-
-    }
-}
-
-class SaleState implements State{
-
-    @Override
-    public void makeNewSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void enterItem(PosApp pos) {
-        while (!pos.enterItem()){
-            pos.setState(this);
-        }
-    }
-
-    @Override
-    public void finishSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void makePayment(PosApp pos) {
-
-    }
-}
-
-class PaymentState implements State{
-
-    @Override
-    public void makeNewSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void enterItem(PosApp pos) {
-
-    }
-
-    @Override
-    public void finishSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void makePayment(PosApp pos) {
-        while (!pos.makePayment()){
-            pos.setState(this);
-        }
-    }
-}
-
-class FinishState implements State{
-
-    @Override
-    public void makeNewSale(PosApp pos) {
-
-    }
-
-    @Override
-    public void enterItem(PosApp pos) {
-
-    }
-
-    @Override
-    public void finishSale(PosApp pos) {
-        while (!pos.finishSale()){
-            pos.setState(this);
-        }
-    }
-
-    @Override
-    public void makePayment(PosApp pos) {
-
-    }
-}
+import Reconsitution2.state.*;
 
 public class PosApp {
+
     private Payment payment;
     private Sale sale;
     private boolean isdone = false;
-
     private State state;
-
-
 
     public State getState() {
         return state;

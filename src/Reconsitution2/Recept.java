@@ -1,5 +1,7 @@
 package Reconsitution2;
 
+import Reconsitution2.style.SimpleAdapter;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,18 +16,32 @@ public class Recept {
     private String text;
     private String time;
 
-    public Recept(Sale sale, Payment payment){
-        setText(sale,payment);
+    public Recept(Object o,Sale sale, Payment payment){
+        setText(o,sale,payment);
+    }
+
+    public void setText(Object o,Sale sale,Payment payment){
+        if(o instanceof SimpleAdapter){
+            setSimpleText(sale,payment);
+        }
+        else{
+            setNormalText(sale,payment);
+        }
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(Sale sale,Payment payment){
+    public String getTime() {
+        return time;
+    }
+
+    public void setNormalText(Sale sale, Payment payment){
         StringBuilder builder = new StringBuilder();
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         time =  formatter1.format(new Date());
+        time = time.replace(':','-');
         builder.append("商品名   零售价   数量   金额\n\n");
         for(var info:sale.getItem().getSaled()){
             builder.append(info).append("\n");
@@ -39,27 +55,23 @@ public class Recept {
         text = builder.toString();
     }
 
+    public void setSimpleText(Sale sale,Payment payment){
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        time =  formatter1.format(new Date());
+        time = time.replace(':','-');
+        StringBuilder builder = new StringBuilder();
+        builder.append("商品名   零售价   数量   金额\n\n");
+        for(var info:sale.getItem().getSaled()){
+            builder.append(info).append("\n");
+        }
+        text = builder.toString();
+    }
+
     @Override
     public String toString() {
         return text;
     }
 
-    public void print(){
-        time = time.replace(':','-');
-        File dir = new File("./src/logs");
-        if(!dir.exists()) {
-            boolean success = dir.mkdirs();
-        }
-        String filename =  "./src/logs/销售单据 " + time + ".txt";
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            out.write(toString());
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
 
