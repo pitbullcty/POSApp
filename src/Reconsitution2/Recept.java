@@ -29,9 +29,9 @@ public class Recept {
         sql = "insert into sale_info(id,total,pay,`change`,detail,`date`) values(?,";
         StringBuilder sqlBuilder = new StringBuilder(sql);
         StringBuilder detailbuild = new StringBuilder();
-        sqlBuilder.append(payment.getTotal());
-        sqlBuilder.append(payment.getPay());
-        sqlBuilder.append(payment.getChange());
+        sqlBuilder.append(payment.getTotal()+",");
+        sqlBuilder.append(payment.getPay()+",");
+        sqlBuilder.append(payment.getChange()+",");
         for(var e1:sale.toTable()){
             for (var e2:e1){
                 detailbuild.append(e2).append(' ');
@@ -39,8 +39,8 @@ public class Recept {
         }
         SimpleDateFormat simpleFormatter  = new SimpleDateFormat("yyyy-MM-dd");
 
-        sqlBuilder.append("'"+detailbuild+"'");
-        sqlBuilder.append("'"+simpleFormatter.format(new Date())+"'");
+        sqlBuilder.append("'"+detailbuild+"',");
+        sqlBuilder.append("'"+simpleFormatter.format(new Date())+"')");
         sql = sqlBuilder.toString();
     }
 
