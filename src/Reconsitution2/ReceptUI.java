@@ -40,7 +40,15 @@ public class ReceptUI {
         public void run() {
             boolean isInvoke = false;
             while (count < 100) {
-                if (!isInvoke) recept.print();
+                if (!isInvoke){
+                    recept.print();
+                    try {
+                        recept.toDataBase();
+                    } catch (Exception e){
+                        JOptionPane.showMessageDialog(panel, "数据库配置出现错误！", "警告", JOptionPane.WARNING_MESSAGE);
+                        e.printStackTrace();
+                    }
+                }
                 isInvoke = true;
                 try {
                     Thread.sleep(10);
