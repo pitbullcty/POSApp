@@ -1,5 +1,7 @@
 package Reconsitution2;
 
+import Reconsitution2.database.DataBaseManager;
+import Reconsitution2.database.DataBaseReceptManager;
 import Reconsitution2.style.SimpleAdapter;
 
 import java.io.BufferedWriter;
@@ -9,16 +11,39 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 
 public class Recept {
 
     private String text;
     private String time;
+    private String sql;
 
     public Recept(Object o,Sale sale, Payment payment){
         setText(o,sale,payment);
+        setsql(sale,payment);
     }
+
+    public void setsql(Sale sale, Payment payment){
+        sql = "insert into sale_info(id,total,pay,`change`,detail,`date`) values(?,";
+        StringBuilder sqlBuilder = new StringBuilder(sql);
+        StringBuilder detailbuild = new StringBuilder();
+        sqlBuilder.append(payment.getTotal());
+        sqlBuilder.append(payment.getPay());
+        sqlBuilder.append(payment.getChange());
+        for(var e1:sale.toTable()){
+            for (var e2:e1){
+                detailbuild.append(e2).append(' ');
+            }
+        }
+        SimpleDateFormat simpleFormatter  = new SimpleDateFormat("yyyy-MM-dd");
+
+        sqlBuilder.append("'"+detailbuild+"'");
+        sqlBuilder.append("'"+simpleFormatter.format(new Date())+"'");
+        sql = sqlBuilder.toString();
+    }
+
 
     public void setText(Object o,Sale sale,Payment payment){
         if(o instanceof SimpleAdapter){
@@ -35,6 +60,10 @@ public class Recept {
 
     public String getTime() {
         return time;
+    }
+
+    public String getsql() {
+        return sql;
     }
 
     public void setNormalText(Sale sale, Payment payment){
@@ -66,6 +95,8 @@ public class Recept {
         }
         text = builder.toString();
     }
+
+
 
     @Override
     public String toString() {

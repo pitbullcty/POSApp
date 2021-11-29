@@ -1,5 +1,7 @@
 package Reconsitution2;
 
+import Reconsitution2.database.DataBaseManager;
+import Reconsitution2.database.DataBaseReceptManager;
 import Reconsitution2.style.Printer;
 
 import javax.swing.*;
@@ -60,7 +62,10 @@ public class ReceptUI {
                 if (!isInvoke){
                     Object c =Parser.getObject();
                    Printer printer = (Printer) c;
+                   DataBaseReceptManager dataBaseReceptManager = new DataBaseReceptManager();
                    printer.print(recept);
+                   dataBaseReceptManager.insert(recept.getsql());
+
                 }
                 isInvoke = true;
                 try {
