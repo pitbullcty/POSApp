@@ -33,6 +33,10 @@ public class Payment {
         }
     }
 
+    public double getChange(){
+        return payment-sum;
+    }
+
     public double getPayment() {
         return payment;
     }

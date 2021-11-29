@@ -37,7 +37,7 @@ public class AddUI {
                 String name = saled.getNamebyID(id, info);
                 double price = saled.getPricebyID(id, info);
                 if (name != null) {
-                    saled.addItem(new SaledItemInfo(name, num, price));
+                    saled.addItem(new SaledItemInfo(id,name, num, price));
                     JOptionPane.showMessageDialog(panel1, "成功添加商品", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(panel1, "无该商品ID，添加失败！", "警告", JOptionPane.WARNING_MESSAGE);

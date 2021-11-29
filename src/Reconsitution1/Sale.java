@@ -1,5 +1,6 @@
 package Reconsitution1;
 
+
 import java.util.Scanner;
 
 public class Sale {
@@ -17,8 +18,8 @@ public class Sale {
     }
 
     public void MakeNewSale(){
-        String id = "";
-        int num = 0;
+        String id;
+        int num;
         System.out.println("是否录入商品");
         while (PosApp.GetCommand()) {
             System.out.print("输入商品id:");
@@ -26,7 +27,7 @@ public class Sale {
             System.out.print("输入数量:");
             num = input.nextInt();
             input.nextLine();
-            item.AddItem(new SaledItemInfo(item.getNamebyID(id),num,item.getPricebyID(id)));
+            item.AddItem(new SaledItemInfo(id,item.getNamebyID(id),num,item.getPricebyID(id)));
             ListSaledItem();
             System.out.println("是否录入商品");
         }
@@ -49,7 +50,7 @@ public class Sale {
     }
 
     public void PrintRecept(){
-        Recept recept = new Recept(new Payment(this));
-        recept.PrintRecept();
+        Recept recept = new Recept(this,new Payment(this));
+        recept.print();
     }
 }

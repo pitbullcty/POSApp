@@ -2,8 +2,6 @@ package Reconsitution2;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -11,6 +9,9 @@ import java.util.Date;
 
 
 public class SaleUI {
+
+    private static SaleUI ui = null;
+    private boolean isdone;
     private JFrame frame;
     private JPanel panel;
     private JTable item;
@@ -38,6 +39,10 @@ public class SaleUI {
     }
     //定时内部类
 
+    public static SaleUI getInstance() {
+        if (ui == null) ui = new SaleUI();
+        return ui;
+    }
 
     public SaleUI() {
         sale = new Sale();
@@ -49,12 +54,19 @@ public class SaleUI {
         setTable();
         add.addActionListener(new TimeActionListener());
         frame.setVisible(true);
+        isdone = false;
         enterItem();
-        finishSale();
+        makePayment();
     }
 
-    public JPanel getPanel1() {
-        return panel;
+
+    public boolean getIsdone() {
+        return isdone;
+    }
+
+
+    public static void setNull() {
+        ui = null;
     }
 
     public void enterItem() {
@@ -67,7 +79,6 @@ public class SaleUI {
         });
     }
 
-
     public void setTable() {
         String[] columns = {"商品名", "价格", "数量"};
         Object[][] data = null;
@@ -79,7 +90,6 @@ public class SaleUI {
         };
         item.setModel(model);
     }
-
 
     public void showItem() {
         setTable();
@@ -94,13 +104,20 @@ public class SaleUI {
         }
     }
 
-    public void finishSale() {
+    public void makePayment() {
         end.addActionListener(e -> {
-            if (addui != null) addui.getFrame().setVisible(false);
-            payui = new PaymentUI(sale);
-            frame.setVisible(false);
+            if(sale.getItem()!=null && sale.getItem().getSaled().size()!=0){
+                if (addui != null) addui.getFrame().setVisible(false);
+                frame.setVisible(false);
+                isdone = true;
+            }
+            else{
+                JOptionPane.showMessageDialog(panel, "请购买物品后结算！", "提示", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
     }
 
-
+    public Sale getSale() {
+        return sale;
+    }
 }

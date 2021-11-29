@@ -1,5 +1,4 @@
 package Reconsitution1;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,36 +8,49 @@ import java.util.Date;
 
 public class Recept {
 
-    private Payment pay;
+    private String text;
+    private String time;
 
-    Recept(Payment pay){
-        this.pay =pay;
+    public Recept(Sale sale, Payment payment){
+        setText(sale,payment);
     }
 
-    public void PrintRecept(){
-        double payment = pay.getPayment();
-        double sum = pay.getSum();
-        Date date = new Date();
-        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        SimpleDateFormat formatter2 = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+    public String getText() {
+        return text;
+    }
+
+    public void setText(Sale sale,Payment payment){
+        StringBuilder builder = new StringBuilder();
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        time =  formatter1.format(new Date());
+        builder.append("商品名   零售价   数量   金额\n\n");
+        for(var info:sale.getItem().getSaled()){
+            builder.append(info).append("\n");
+        }
+        builder.append("\n").append(String.format("应付额：%.2f\n", payment.getSum()));
+        builder.append(String.format("实付额：%.2f\n", payment.getPayment()));
+        builder.append(String.format("找零:%.2f\n", payment.getChange()));
+        builder.append("交易时间:").append(time).append("\n");
+        builder.append("交易地点：四川大学江安校区\n");
+        builder.append("交易人：小明\n");
+        text = builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
+
+    public void print(){
+        time = time.replace(':','-');
         File dir = new File("./src/logs");
         if(!dir.exists()) {
-            dir.mkdirs();
+            boolean success = dir.mkdirs();
         }
-        String filename =  "./src/logs/Saleinfo " + formatter1.format(date) + ".txt";
+        String filename =  "./src/logs/销售单据 " + time + ".txt";
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            out.write("商品名   零售价   数量   金额\n\n");
-            for (var info : pay.getSale().getItem().getSaled()) {
-                out.write(info + "\n");
-            }
-            out.write("\n");
-            out.write(String.format("应付额：%.2f\n", sum));
-            out.write(String.format("实付额：%.2f\n", payment));
-            out.write(String.format("找零:%.2f\n", payment - sum));
-            out.write("交易时间:" +  formatter2.format(date) +"\n");
-            out.write("交易地点：四川大学江安校区\n");
-            out.write("交易人：小明\n");
+            out.write(toString());
             out.close();
 
         } catch (IOException e) {
