@@ -23,8 +23,7 @@ public class DataBaseManager implements DataBase{
         }
     }
 
-
-    public Connection connection() {
+    public Connection getConnection() {
         return con;
     }
 

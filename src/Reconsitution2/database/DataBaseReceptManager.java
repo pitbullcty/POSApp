@@ -31,7 +31,7 @@ public class DataBaseReceptManager implements DataBase{
 
     @Override
     public void delete(String sql) {
-        dataBaseManager.update(sql);
+        dataBaseManager.delete(sql);
     }
 
     @Override
