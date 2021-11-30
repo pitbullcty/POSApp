@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 /*
 * Item类，用于记录商品信息
-*
 * */
 class Item {
     protected String ID; //商品ID

@@ -11,7 +11,7 @@ public class PosApp {
     private boolean isdone = false; //界面是否跳转
     private enum STATE {
         WELCOMESTATE,  //欢迎状态
-        SALESTATE,  //销售状态爱
+        SALESTATE,  //销售状态
         PAYMENTSTATE, //付款状态
         RECEPTSTATE,  //打印状态
     }  //界面状态

@@ -4,7 +4,7 @@ package com.scu.pos;
 import java.util.ArrayList;
 
 /*
-* 卖出商品信息 继承自商品信息
+* SaledItemInfo类，记录卖出商品信息 继承自商品信息
 * */
 class SaledItemInfo extends Item {
 

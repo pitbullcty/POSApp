@@ -4,7 +4,7 @@ import java.io.File;
 
 
 /*
-* 商品目录类 记录目录文件
+* GoodLog 商品目录类 记录目录文件
 * */
 public class GoodsLog {
 

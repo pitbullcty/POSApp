@@ -2,20 +2,25 @@ package com.scu.pos;
 
 import javax.swing.*;
 
-
+/*
+* WelcomeUI 欢迎界面类
+* */
 public class WelcomeUI {
 
-    private static WelcomeUI ui = null;
+    private static WelcomeUI ui;
     private static boolean isdone = false;
-    private JFrame frame;
-    private JPanel panel1;
-    private JButton start;
+    private JFrame frame; //框架
+    private JPanel panel1; //画板
+    private JButton start;  //开始销售按钮
 
+    /*
+    * 开始新销售
+    * */
     void makeNewSale() {
         start.addActionListener(e -> {
             isdone = true;
-            frame.setVisible(false);
-        });
+            frame.dispose();
+        }); //为开始按钮添加监听事件
     }
 
     public boolean getIsdone() {
@@ -23,20 +28,23 @@ public class WelcomeUI {
     }
 
 
-
-
     public static void setNull() {
         ui = null;
     }
 
-
+    /*
+    * 获取单例类实例
+    * */
     public static WelcomeUI getInstance() {
         if (ui == null) ui = new WelcomeUI();
         return ui;
     }
 
+    /*
+    * 构造方法
+    * */
     public WelcomeUI() {
-        frame = new JFrame("POS系统");
+        frame = new JFrame("超市购物系统");
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);

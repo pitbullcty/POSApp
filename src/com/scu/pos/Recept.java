@@ -9,9 +9,7 @@ import java.util.Date;
 
 
 /*
-*
 * 单据类，用于打印单据，以及数据进入数据库
-*
 * */
 public class Recept {
 
