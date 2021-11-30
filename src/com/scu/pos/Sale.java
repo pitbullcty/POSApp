@@ -1,14 +1,23 @@
-package Reconsitution2;
+package com.scu.pos;
 import java.util.ArrayList;
 
-public class Sale {
-    private SaledItem item;
-    private double total;
 
+/*
+* Sale类，用于记录销售信息
+* */
+public class Sale {
+
+    private SaledItem item;  //卖出物品信息
+    private double total;  //总价
+
+    /*
+    *构造方法
+    * */
     public Sale(SaledItem item){
         this.item = item;
         total = item.getSum();
     }
+
     public Sale(){
         item = null;
     }
@@ -29,6 +38,9 @@ public class Sale {
         this.total = item.getSum();
     }
 
+    /*
+    * 将销售信息转化为表格
+    * */
     public String[][] toTable(){
         ArrayList<SaledItemInfo> info = item.getSaled();
         String[][] tableinfo = new String[info.size()][3];

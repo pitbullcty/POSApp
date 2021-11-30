@@ -1,7 +1,6 @@
-package Reconsitution2;
+package com.scu.pos;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class AddUI {
     private JFrame frame;

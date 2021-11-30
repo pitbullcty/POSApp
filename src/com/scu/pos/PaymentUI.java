@@ -1,4 +1,4 @@
-package Reconsitution2;
+package com.scu.pos;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

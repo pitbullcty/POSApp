@@ -1,12 +1,6 @@
-package Reconsitution2;
+package com.scu.pos;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicButtonListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ReceptUI {
     private static ReceptUI ui;
