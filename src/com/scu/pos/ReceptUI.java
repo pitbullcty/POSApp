@@ -1,10 +1,11 @@
 package com.scu.pos;
 
 import javax.swing.*;
+import java.awt.*;
 
 /*
-* ReceptUI 单据界面类
-* */
+ * ReceptUI 单据界面类
+ * */
 public class ReceptUI {
 
     private static ReceptUI ui;
@@ -16,6 +17,7 @@ public class ReceptUI {
     private boolean isdone = false;  //是否需要跳转
 
     public ReceptUI(Sale sale, Payment payment) {
+        setupUI();
         frame = new JFrame("超市购物系统");
         frame.setContentPane(panel);
         frame.setSize(400, 200);
@@ -38,23 +40,41 @@ public class ReceptUI {
     }
 
     /*
-    * 单例类获取实例
-    * */
+     * 单例类获取实例
+     * */
     public static ReceptUI getInstance(Sale sale, Payment payment) {
         if (ui == null) ui = new ReceptUI(sale, payment);
         return ui;
     }
 
     /*
-    * 获取面板是否需要跳转
-    * */
+     * 获取面板是否需要跳转
+     * */
     public boolean getIsdone() {
         return isdone;
     }
 
     /*
-    * 打印内部类
+    * 设置ui样式
     * */
+    private void setupUI() {
+        panel = new JPanel();
+        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        info = new JLabel();
+        info.setText("正在打印单据.......");
+        panel.add(info, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        processBar = new JProgressBar();
+        panel.add(processBar, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+
+    public JComponent getRootComponent() {
+        return panel;
+    }
+
+    /*
+     * 打印内部类
+     * */
     class PrintAction extends Thread {
         int count = 0; //进度条值
 
@@ -65,11 +85,11 @@ public class ReceptUI {
         public void run() {
             boolean isInvoke = false;  //打印的方法是否调用
             while (count < 100) {
-                if (!isInvoke){
+                if (!isInvoke) {
                     recept.print();
                     try {
                         recept.toDataBase();  //写入数据库
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         JOptionPane.showMessageDialog(panel, "数据库配置出现错误！", "警告", JOptionPane.WARNING_MESSAGE);
                         e.printStackTrace();
                     }
@@ -87,8 +107,8 @@ public class ReceptUI {
     }
 
     /*
-    * 打印事件
-    * */
+     * 打印事件
+     * */
     public void print() {
         PrintAction printAction = new PrintAction();  //构造线程
         printAction.start();   //启动打印线程
