@@ -1,6 +1,8 @@
 package Reconsitution2.style;
 
+import Reconsitution2.Payment;
 import Reconsitution2.Recept;
+import Reconsitution2.Sale;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +14,8 @@ import java.util.Date;
 public class NormalAdapter implements Printer {
     private NormalPrinter normalPrinter;
     @Override
-    public void print(Recept recept) {
+    public void print(Sale sale, Payment payment) {
         normalPrinter = new NormalPrinter();
-        normalPrinter.normalPrint(recept);
+        normalPrinter.normalPrint(sale,payment);
     }
 }

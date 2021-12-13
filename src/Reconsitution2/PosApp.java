@@ -10,6 +10,10 @@ public class PosApp {
     private boolean isdone = false;
     private State state;
 
+    public PosApp(){
+        sale = new Sale();
+    }
+
     public State getState() {
         return state;
     }

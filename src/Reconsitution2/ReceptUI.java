@@ -22,8 +22,7 @@ public class ReceptUI {
         frame.setSize(400, 200);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        Object o =Parser.getObject();
-        recept = new Recept(o,sale, payment);
+        recept = new Recept(sale, payment);
         processBar.addChangeListener(e -> {
             if (processBar.getValue() == 100) {
                 isdone = true;
@@ -60,10 +59,8 @@ public class ReceptUI {
             boolean isInvoke = false;
             while (count < 100) {
                 if (!isInvoke){
-                    Object c =Parser.getObject();
-                   Printer printer = (Printer) c;
+                    recept.print();
                    DataBaseReceptManager dataBaseReceptManager = new DataBaseReceptManager();
-                   printer.print(recept);
                    dataBaseReceptManager.insert(recept.getsql());
 
                 }
